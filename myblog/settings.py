@@ -294,7 +294,7 @@ SOCIALACCOUNT_PROVIDERS = \
           }
 
 #SECRET_KEY = os.environ.get('HB2_SECRET_KEY')
-CURRENT_ENV = 'dev' #os.environ.get('HB2_ENV')
+CURRENT_ENV = os.environ.get('HB2_ENV')
 B2_BUCKET_NAME = 'trjblog' #os.environ.get('HB2_B2_BUCKET_NAME')
 B2_BUCKET_ID = 'd2a97b0cdb3aebf16e0b081b'#os.environ.get('HB2_B2_BUCKET_ID')
 B2_ACCOUNT_ID = '29bcbab1eb8b'#os.environ.get('HB2_B2_ACCOUNT_ID')
