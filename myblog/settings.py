@@ -215,18 +215,11 @@ STATICFILES_DIRS = (
     )
 #STATIC_ROOT = os.path.join(os.path.dirname(os.path.join(BASE_DIR, "static")), "static")
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
+
 #Media files configuration
 MEDIA_URL = "/media/"
-#MEDIA_ROOT = os.path.join(os.path.dirname(os.path.join(BASE_DIR, "static")), "static/media")
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static/media")
 
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#EMAIL_USE_TLS = True
-#EMAIL_HOST = 'smtp.xchangeidea.net'
-#EMAIL_PORT = 587
-#EMAIL_HOST_USER = 'hello@xchangeidea.net'
-#EMAIL_HOST_PASSWORD = 'xch@ngeide@2016'
-#DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
@@ -235,14 +228,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'contact.xchangeidea@gmail.com'
 EMAIL_HOST_PASSWORD = 'pass@word'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#EMAIL_USE_TLS = True
-#EMAIL_HOST = 'smtp.mailgun.org'
-#EMAIL_PORT = 587
-#EMAIL_HOST_USER = 'e@mail.xchangeidea.net'
-#EMAIL_HOST_PASSWORD = 'xchangeidea'
-#DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 SOCIALACCOUNT_PROVIDERS = \
     { 'google':
@@ -294,13 +279,13 @@ SOCIALACCOUNT_PROVIDERS = \
           }
 
 #SECRET_KEY = os.environ.get('HB2_SECRET_KEY')
-CURRENT_ENV = os.environ.get('HB2_ENV')
-B2_BUCKET_NAME = 'trjblog' #os.environ.get('HB2_B2_BUCKET_NAME')
-B2_BUCKET_ID = 'd2a97b0cdb3aebf16e0b081b'#os.environ.get('HB2_B2_BUCKET_ID')
-B2_ACCOUNT_ID = '29bcbab1eb8b'#os.environ.get('HB2_B2_ACCOUNT_ID')
-B2_APPLICATION_KEY = '000363a4acde7fbe56cd44e5a1868ca45368c6fedc'#os.environ.get('HB2_B2_APP_KEY')
-DEFAULT_FILE_STORAGE = 'django_b2storage.backblaze_b2.B2Storage' # To be able to use B2
+#CURRENT_ENV = os.environ.get('HB2_ENV')
+#B2_BUCKET_NAME = os.environ.get('HB2_B2_BUCKET_NAME')
+#B2_BUCKET_ID = os.environ.get('HB2_B2_BUCKET_ID')
+#B2_ACCOUNT_ID = os.environ.get('HB2_B2_ACCOUNT_ID')
+#B2_APPLICATION_KEY = os.environ.get('HB2_B2_APP_KEY')
+#DEFAULT_FILE_STORAGE = 'django_b2storage.backblaze_b2.B2Storage' # To be able to use B2
 
-DEBUG = False  # Should never be True in production
-if CURRENT_ENV=='dev':
-    DEBUG = True
+#DEBUG = False  # Should never be True in production
+#if CURRENT_ENV=='dev':
+#    DEBUG = True

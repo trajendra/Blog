@@ -23,7 +23,7 @@ class PostManager(models.Manager):
 
 def upload_location(instance, filename):
     #filebase, extension = filename.split(".")
-    #return "%s/%s.%s" %(instance.id, instance.id, extension)
+    #return "%s/%s.%s" %(instance.name, instance.id, extension)
     PostModel = instance.__class__
     new_id = PostModel.objects.order_by("id").last().id + 1
     """
@@ -33,7 +33,7 @@ def upload_location(instance, filename):
     Which will give us the most recently created Model instance
     We add 1 to it, so we get what should be the same id as the the post we are creating.
     """
-    return "%s/%s" %(new_id, filename)
+    return "%s.%s" %(new_id, filename)
 
 class Category(models.Model):
     name = models.CharField(max_length=120, unique=True)
@@ -71,8 +71,7 @@ class Post(models.Model):
             null=True,
             blank=True,
             width_field="width_field",
-            height_field="height_field",
-            default="cdn/py.png")
+            height_field="height_field")
     height_field = models.IntegerField(default=0,null=True,blank=True)
     width_field = models.IntegerField(default=0,null=True,blank=True)
     summary_content = RichTextUploadingField(config_name='awesome_ckeditor')
