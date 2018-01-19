@@ -1,0 +1,149 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>XChange Idea Network About Us</title>
+		<meta name="description" content="exchange idea network" />
+		<meta name="keywords" content="google getting started gallery, image gallery, image grid, template, masonry" />
+		<meta name="author" content="xchangeidea" />
+		<link rel="shortcut icon" href='{% static "assets/ico/favicon.ico" %}'>
+	    <link href='{% static "assets/css/bootstrap.css" %}' rel="stylesheet">
+        <link href='{% static "assets/css/style.css" %}' rel="stylesheet">
+        <link href='{% static "assets/css/font-awesome.min.css" %}' rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href='{% static "GridGallery/GridGallery/css/demo.css" %}'/>
+		<link rel="stylesheet" type="text/css" href='{% static "GridGallery/GridGallery/css/component.css" %}' />
+        <script src='{% static "GridGallery/GridGallery/js/modernizr.custom.js" %}'></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	</head>
+	<body>
+    <div class="navbar navbar-default navbar-fixed-top navbar-shrink" role="navigation" >
+    <a class="navbar-brand" href="/" style="color:white; padding-left:25px; padding-right:33px; "> XCHANGE IDEA . NET </a>
+    <div class="container-fluid">
+
+        <div class="navbar-header" >
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+
+      </div>
+    <div class="col-sm-6" style="padding-top:0.8%">
+     <form method='GET' action='' class='row'>
+         <div class='input-group'>
+          <input class='form-control srp' type='text' name='q' placeholder='Search posts' value='{{ request.GET.q }}'/>
+          <span class='input-group-btn'>
+             <button class='btn btn-primary srp' type='submit'> <i class="fa fa-search"></i></button>
+          </span>
+         </div>
+      </form>
+      </div>
+
+
+      <div class="navbar-collapse collapse navbar-right" >
+        <ul class="nav navbar-nav" >
+          <li class="active"><a href='{% url "posts:list" %}'>HOME</a></li>
+          {% block post_detail_link %}
+          {% endblock %}
+          <li><a href="/about">ABOUT US</a></li>
+          <li><a href="/contact">CONTACT</a></li>
+          {% if request.user.is_authenticated %}
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">ACTIONS <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+               {% if user.is_staff %}
+                <li><a href='/blog/create/'><span class="glyphicon glyphicon-pencil"></span> CREATE POST</a></li>
+               {% endif %}
+               <li><a href="/profile/"><span class="glyphicon glyphicon-user"></span> MY PROFILE</a></li>
+
+              </ul>
+            </li>
+          {% endif %}
+
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          {% if not request.user.is_authenticated %}
+          <li><a href={% url "account_signup" %}><span class="glyphicon glyphicon-user"></span> REGISTER</a></li>
+          <li><a href={% url "account_login" %}><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>
+          {% else %}
+          <li class='pull-right'><a href='{% url "account_logout" %}'><span class="glyphicon glyphicon-log-out"></span> LOGOUT</a></li>
+          {% endif %}
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+	<div class="container-fluid" style="padding-top:70px;" >
+	 <div id="grid-gallery" class="grid-gallery"  >
+	  <section class="grid-wrap">
+        <ul class="grid">
+		<li class="grid-sizer"></li><!-- for Masonry column width -->
+
+         {% for profile in profiles %}
+
+         <li><figure>
+		 {% if profile.image %}<img src='{{ profile.image.url }}' alt="img"/> {% endif %}
+		 <figcaption>
+         <h3>{% if profile.first_name %} {{ profile.first_name }} {% endif %}
+             {% if profile.last_name %} {{ profile.last_name }}   {% endif %}
+
+         </h3>
+         <p>{% if profile.skills %} {{ profile.skills }}{% endif %}</p>
+         </figcaption>
+		</figure></li>
+
+        {% endfor %}
+
+
+		</ul>
+	  </section><!-- // grid-wrap -->
+	  <section class="slideshow">
+	  <ul>
+
+      {% for profile in profiles %}
+
+       <li><figure>
+       <div class="col-sm-4">
+		 {% if profile.image %}<img src='{{ profile.image.url }}' alt="img"/> {% endif %}</div>
+		 <figcaption>
+         <h3>{% if profile.first_name %} {{ profile.first_name }} {% endif %}
+             {% if profile.last_name %} {{ profile.last_name }}   {% endif %}
+         </h3>
+         <p>{% if profile.skills %} {{ profile.skills }}{% endif %}</p>
+
+         <a href="/blog/posts/{{profile.slug}}" style="color:#ff922c;"> [ View his Posts ] </a><br/>
+         <a href="{{ profile.get_absolute_url }}" style="color:#ff922c;"> [ Full Profile ] </a><br/>
+         </figcaption>
+		</figure></li>
+      {% endfor %}
+
+       </ul>
+		<nav>
+		<span class="icon nav-prev"></span>
+		<span class="icon nav-next"></span>
+		<span class="icon nav-close"></span>
+		</nav>
+		<div class="info-keys icon">Navigate with arrow keys</div>
+	  </section><!-- // slideshow -->
+	 </div><!-- // grid-gallery -->
+
+
+	</div>
+		<script src='{% static "GridGallery/GridGallery/js/imagesloaded.pkgd.min.js" %}'></script>
+		<script src='{% static "GridGallery/GridGallery/js/masonry.pkgd.min.js" %}'></script>
+		<script src='{% static "GridGallery/GridGallery/js/classie.js" %}'></script>
+		<script src='{% static "GridGallery/GridGallery/js/cbpGridGallery.js" %}'></script>
+		<script>
+			new CBPGridGallery( document.getElementById( 'grid-gallery' ) );
+		</script>
+
+        <script src='{% static "assets/js/bootstrap.min.js" %}'></script>
+	</body>
+</html>

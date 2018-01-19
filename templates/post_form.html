@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block head_extra %}
+{{ form.media }}
+{% endblock head_extra %}
+
+{% block total_content %}
+
+ <div class="container-fluid">
+  <div class='col-lg-10'>
+  <h1>{{ form_name }}</h1> <hr/> {% csrf_token %}
+      {% crispy form %}
+  </div>
+
+ <div class ="col-lg-2">
+  <h1>+</h1> <hr/> {% csrf_token %}
+
+     <div class="well well-sm">
+  <a href="/blog/category/add/" data-toggle="modal" data-target="#myModal1">
+   Add Category
+  </a></div>
+
+  <div class="well well-sm">
+  <a href="/blog/subcategory/add/" data-toggle="modal" data-target="#myModal2" >
+      Sub Category
+  </a></div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal1" role="dialog" >
+    <div class="modal-dialog">
+      <div class="modal-content"></div>
+    </div>
+  </div>
+     <!-- Modal -->
+  <div class="modal fade" id="myModal2" role="dialog" >
+    <div class="modal-dialog">
+      <div class="modal-content"></div>
+    </div>
+  </div>
+
+
+
+
+ </div>
+ </div>
+{% endblock total_content %}

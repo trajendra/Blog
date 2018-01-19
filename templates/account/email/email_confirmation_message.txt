@@ -1,0 +1,32 @@
+{% load account %}{% user_display user as user_display %}{% load i18n %}{% autoescape off %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
+ <hr/>
+ <br/>
+ Hello {{ user_display }}
+
+ <br/><br/>
+ Thank you for registering with XChange Idea Network!
+ <br/><br/>
+ Please confirm your email address to login and explore {{ site_domain }}.
+ <br/><br/>
+<table align="center" cellspacing="0" cellpadding="0">
+<tr> </tr>
+ <tr >
+ <td align="center" width="130" height="30" bgcolor="#2fa2e7" style="-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; color: #ffffff; display: block;">
+ <a href="{{activate_url}}" style="font-size:16px; font-weight: bold; font-family: Helvetica, Arial, sans-serif; text-decoration: none; line-height:27px; width:100%; display:inline-block">
+ <span style="color: #FFFFFF">Confirm Email</span>
+ </a>
+ </td>
+ </tr>
+ </table>
+ <br/>
+ <small> You're receiving this e-mail because user {{ user_display }} at {{ site_domain }} has given yours as an e-mail address to connect their account.
+ <br/>
+  To confirm this is correct, you can also click or copy & paste this url in a new browser window. <a href=" {{ activate_url }} " >{{ activate_url }} </a> <br/>
+  </small>
+{% endblocktrans %}{% endautoescape %}
+{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
+  <br/><br/>
+   Thank you, {{ site_domain }}
+  <hr/>
+
+  {% endblocktrans %}

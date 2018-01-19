@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load urlify %}
+{% block content %}
+
+
+    <div class="col-lg-9" style="word-wrap: break-word;">
+    {% for post in object_list %}
+      {% if post.image %} <p> <img src='{{ post.image.url }}' class='img-responsive'> </p> {% endif %}
+       <a href="{{post.get_absolute_url}}" > <h3 class="ctitle">{{ post.title }}</h3> </a>
+
+       {% if post.draft %} <h4 class="ctitle">Staff only: Draft</h4> {% endif %}
+       {% if post.publish > today %}<h4 class="ctitle">Staff Only: Future Post</h4> {% endif %}
+       <p>{% if post.user.get_full_name %} <csmall> Posted: {{ post.publish }} </csmall>
+       |<csmall2> By: {{ post.user.get_full_name }}</csmall2> {% endif %}
+       |<csmall>{% if post.views %} Views: {{ post.views }} {% endif %}</csmall>
+
+
+       | <csmall2>  Likes: </csmall2>
+           <button class="likes post-likes" id="heart-icon" data-post-id="{{ post.id }}" style="border:none;font-size: 14px;background-color: #fff;">
+           {% if liked %}
+           <i class="heart-shaped fa fa-heart" style="display: inline-flex; border-color:white;  color:hotpink; background-color:white ">
+           <span class="like_count_blog" id="heart-counter" style="font-size:15px; font-weight:bold; padding-left: 3px; "> {% if post.likes %}{{ post.likes }} {% endif %}</span>
+           </i>
+           {% else %}
+           <i class="heart-shaped fa fa-heart" style="display: inline-flex; border-color:white;  color:hotpink; background-color:white">
+           <span class="like_count_blog" id="heart-counter" style="font-size:15px; font-weight:bold; padding-left: 3px; ">{% if post.likes %}{{ post.likes }} {% endif %}</span>
+           </i>
+           {% endif %}
+
+           </button>
+       |   <csmall>  Share: </csmall>
+           <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+           <img src="{% static "images/facebook.png" %}" alt="Fb" width=22 height=22 class="right" />
+           </a>
+
+           <a href="https://twitter.com/home?status={{ post.content|truncatechars:80|urlify }}%20{{ request.build_absolute_uri }}">
+            <img src="{% static "images/twitter.png" %}" alt="Twitter" width=22 height=22 class="right" />
+           </a>
+
+           <a href='https://plus.google.com/share?url={{ request.build_absolute_uri }}'>
+              <img src="{% static "images/googleplus.png" %}" alt="googleplus" width=22 height=22 class="right" />
+           </a>
+
+           <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ post.title }}&summary={{ post.content|truncatechars:80 }}&source={{ request.build_absolute_uri }}">
+            <img src="{% static "images/linkedin.png" %}" alt="linkedin" width=22 height=22 class="right" />
+           </a>
+
+
+       </p>
+
+       <p>{{ post.summary_content|safe }} <a href={{post.get_absolute_url}}>[Read More]</a>  </p>
+        <csmall2> Labels : </csmall2>
+        {% for tag in post.get_tag_list %}
+          <a href="blog/tag/{{ tag }}/"><csmall> {{ tag }} </csmall></a>{% if not forloop.last %}, {% endif %}
+       {% endfor %}
+       <div class="hline"></div>
+
+    {% endfor %}
+
+    <div class="pagination">
+          <span class="step-links">
+              {% if object_list.has_previous %}
+                  <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
+              {% endif %}
+              <span class="current">
+               {% if object_list.paginator.num_pages %}   Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}. {% endif %}
+              </span>
+              {% if object_list.has_next %}
+                  <a href="?{{ page_request_var }}={{ object_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+              {% endif %}
+          </span>
+    </div>
+
+   </div>
+{% endblock content %}
+
+
+
+
+
