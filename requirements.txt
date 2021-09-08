@@ -10,7 +10,7 @@ django-pagedown==1.0.6
 idna==2.8
 markdown2==2.3.7
 oauthlib==3.0.1
-Pillow==5.4.1
+Pillow==8.3.2
 python-openid==2.2.5
 pytz==2018.9
 requests==2.21.0
